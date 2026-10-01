@@ -1,8 +1,122 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Inicio";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="card product-card p-4 p-md-5 mb-5 text-center position-relative overflow-hidden">
+    <div class="position-relative z-1">
+        <span class="badge bg-warning bg-opacity-10 text-warning px-3 py-2 rounded-pill fw-bold text-uppercase tracking-wider mb-3">
+            ⭐ Tienda Oficial de la Comunidad
+        </span>
+        <h1 class="display-3 fw-extrabold text-white mb-3" style="font-family: 'Rajdhani', sans-serif;">
+            BIENVENIDO A LA TIENDA OFICIAL
+        </h1>
+        <p class="lead text-light-50 mx-auto mb-4" style="max-width: 700px;">
+            Apoya el mantenimiento del servidor adquiriendo membresías VIP, cosméticos exclusivos para el chat, llaves de misterio y paquetes especiales.
+        </p>
+
+        <div class="d-flex justify-content-center gap-3 flex-wrap">
+            <a asp-controller="Ranks" asp-action="Index" class="btn btn-buy-custom px-4 py-3 fs-5 shadow">
+                <i class="bi bi-gem me-2"></i> Explorar Rangos
+            </a>
+            <a asp-controller="Prefixes" asp-action="Index" class="btn btn-outline-light px-4 py-3 fs-5 rounded-3 fw-bold">
+                <i class="bi bi-chat-quote-fill me-2 text-info"></i> Ver Prefijos
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="mb-5">
+    <div class="text-center mb-4">
+        <h2 class="fw-extrabold text-uppercase text-white" style="font-family: 'Rajdhani', sans-serif;">
+            Categorías Disponibles
+        </h2>
+        <span class="text-light-50 small">Selecciona una sección para ver los paquetes en venta</span>
+    </div>
+
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
+        <div class="col">
+            <a asp-controller="Ranks" asp-action="Index" class="text-decoration-none">
+                <div class="card product-card h-100 p-4 text-center">
+                    <div class="mb-3">
+                        <i class="bi bi-star-fill text-warning" style="font-size: 2.8rem;"></i>
+                    </div>
+                    <h4 class="fw-bold text-white mb-2">Rangos VIP</h4>
+                    <p class="text-light-50 small mb-3">Ventajas exclusivas, kits recurrentes y comandos dentro del juego.</p>
+                    <span class="text-warning fw-bold small text-uppercase">Entrar a la sección →</span>
+                </div>
+            </a>
+        </div>
+        
+        <div class="col">
+            <a asp-controller="Prefixes" asp-action="Index" class="text-decoration-none">
+                <div class="card product-card h-100 p-4 text-center">
+                    <div class="mb-3">
+                        <i class="bi bi-chat-left-dots-fill text-info" style="font-size: 2.8rem;"></i>
+                    </div>
+                    <h4 class="fw-bold text-white mb-2">Tags y Chat</h4>
+                    <p class="text-light-50 small mb-3">Títulos visuales y colores para destacar en el chat público y tabulador.</p>
+                    <span class="text-info fw-bold small text-uppercase">Entrar a la sección →</span>
+                </div>
+            </a>
+        </div>
+        
+        <div class="col">
+            <a asp-controller="Consumables" asp-action="Index" class="text-decoration-none">
+                <div class="card product-card h-100 p-4 text-center">
+                    <div class="mb-3">
+                        <i class="bi bi-box-seam-fill text-success" style="font-size: 2.8rem;"></i>
+                    </div>
+                    <h4 class="fw-bold text-white mb-2">Consumibles</h4>
+                    <p class="text-light-50 small mb-3">Llaves de cajas de recompensas, monedas del servidor y mejoras temporales.</p>
+                    <span class="text-success fw-bold small text-uppercase">Entrar a la sección →</span>
+                </div>
+            </a>
+        </div>
+        
+        <div class="col">
+            <a asp-controller="Appeals" asp-action="Index" class="text-decoration-none">
+                <div class="card product-card h-100 p-4 text-center">
+                    <div class="mb-3">
+                        <i class="bi bi-life-preserver text-danger" style="font-size: 2.8rem;"></i>
+                    </div>
+                    <h4 class="fw-bold text-white mb-2">Apelaciones</h4>
+                    <p class="text-light-50 small mb-3">Pases automáticos para reactivación de cuentas sancionadas en la red.</p>
+                    <span class="text-danger fw-bold small text-uppercase">Entrar a la sección →</span>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="card product-card p-4 p-md-5 mb-5">
+    <div class="text-center mb-4">
+        <h2 class="fw-extrabold text-uppercase text-white" style="font-family: 'Rajdhani', sans-serif;">
+            ¿Cómo realizar tu compra?
+        </h2>
+        <span class="text-light-50 small">Entrega 100% automatizada y directa en tu cuenta</span>
+    </div>
+
+    <div class="row g-4 text-center">
+        <div class="col-md-4">
+            <div class="p-3">
+                <div class="badge bg-warning text-dark fs-4 rounded-circle mb-3 px-3 py-2 fw-extrabold">1</div>
+                <h5 class="fw-bold text-white">Ingresa tu Usuario</h5>
+                <p class="text-light-50 small">Escribe tu nickname oficial de Minecraft para verificar tu cuenta y skin mediante Mojang.</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="p-3">
+                <div class="badge bg-warning text-dark fs-4 rounded-circle mb-3 px-3 py-2 fw-extrabold">2</div>
+                <h5 class="fw-bold text-white">Selecciona tus Productos</h5>
+                <p class="text-light-50 small">Agrega los rangos o cosméticos que prefieras a tu carrito con detección automática de duplicados.</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="p-3">
+                <div class="badge bg-warning text-dark fs-4 rounded-circle mb-3 px-3 py-2 fw-extrabold">3</div>
+                <h5 class="fw-bold text-white">Recibe tus Beneficios</h5>
+                <p class="text-light-50 small">Al completar tu pago, la orden se acredita y tus ventajas se desbloquean en el servidor.</p>
+            </div>
+        </div>
+    </div>
 </div>

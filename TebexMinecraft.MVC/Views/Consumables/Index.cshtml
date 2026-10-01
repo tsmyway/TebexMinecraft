@@ -1,38 +1,56 @@
 @model List<TebexMinecraft.Modelos.Consumable>
 @{
-    ViewData["Title"] = "Consumibles";
+    ViewData["Title"] = "Consumibles y Llaves";
 }
 
-<div class="text-center mb-5">
-    <h1 class="fw-bold">Consumibles y Paquetes</h1>
-    <p class="text-muted">Vidas para Hardcore Factions, llaves para Crate Crates y más.</p>
+<div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-2">
+    <div>
+        <h2 class="fw-extrabold text-uppercase text-white mb-0" style="font-family: 'Rajdhani', sans-serif; letter-spacing: 1px;">
+            <i class="bi bi-box-seam-fill text-success me-2"></i>Llaves & Consumibles
+        </h2>
+        <span class="text-light-50 small">Paquetes acumulables, llaves de misterio y monedas del juego.</span>
+    </div>
+    <span class="badge bg-success bg-opacity-10 text-success border border-success border-opacity-25 px-3 py-2">
+        <i class="bi bi-stack me-1"></i> Acumulable
+    </span>
 </div>
 
 <div class="row row-cols-1 row-cols-md-3 g-4">
     @foreach (var item in Model)
     {
         <div class="col">
-            <div class="card h-100 shadow-sm border-0">
-                <div class="card-body text-center d-flex flex-column p-4">
-                    <span class="badge bg-warning text-dark align-self-center px-3 py-1 mb-2">Paquete Acumulable</span>
-                    <h5 class="fw-bold text-dark">@item.Name</h5>
-                    <p class="text-muted small">Incluye <strong>@item.Quantity unidades</strong> directas al inventario (/refresh).</p>
-                    
-                    <h3 class="text-success fw-bold my-3">$@item.Price.ToString("0.00")</h3>
+            <div class="card h-100 product-card p-3 d-flex flex-column">
+                
+                <div class="text-center py-3 border-bottom border-secondary border-opacity-25">
+                    <span class="badge bg-success bg-opacity-10 text-success product-badge-rank px-3 py-1 mb-2">
+                        ITEM #@item.Id
+                    </span>
+                    <h3 class="fw-bold text-white mb-0">@item.Name</h3>
+                </div>
 
-                    <form asp-controller="Cart" asp-action="Add" method="post" class="mt-auto">
+                <div class="card-body text-center d-flex flex-column px-2 py-4">
+                    <div class="product-price mb-3">
+                        <span class="fs-4 text-light-50 align-top">$</span>@item.Price.ToString("0.00")
+                        <small class="fs-6 text-light-50 fw-normal">/ unidad</small>
+                    </div>
+
+                    <p class="text-light-50 small flex-grow-1">
+                        Entrega directa dentro del inventario del juego al reclamar tu orden en el servidor.
+                    </p>
+
+                    <form asp-controller="Cart" asp-action="Add" method="post" class="mt-auto pt-3">
                         <input type="hidden" name="ProductCategory" value="CONSUMABLE" />
-                        <input type="hidden" name="ProductInternalName" value="@item.ServerItem" />
+                        <input type="hidden" name="ProductInternalName" value="@item.Name" />
                         <input type="hidden" name="ProductName" value="@item.Name" />
                         <input type="hidden" name="UnitPrice" value="@item.Price" />
 
-                        <div class="input-group mb-3">
-                            <span class="input-group-text">Cant.</span>
-                            <input type="number" name="Quantity" value="1" min="1" max="50" class="form-control text-center" />
+                        <div class="input-group mb-2">
+                            <span class="input-group-text bg-dark text-light-50 border-secondary border-opacity-50">Cant:</span>
+                            <input type="number" name="Quantity" value="1" min="1" max="64" class="form-control bg-dark text-white border-secondary border-opacity-50 text-center fw-bold" />
                         </div>
 
-                        <button type="submit" class="btn btn-warning w-100 fw-bold text-dark">
-                            🛒 Añadir al Carrito
+                        <button type="submit" class="btn btn-buy-custom w-100 py-2 d-flex align-items-center justify-content-center gap-2">
+                            <i class="bi bi-cart-plus-fill fs-5"></i> Añadir
                         </button>
                     </form>
                 </div>

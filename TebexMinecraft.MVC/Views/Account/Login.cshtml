@@ -1,51 +1,43 @@
 @{
-    ViewData["Title"] = "Ingresar a la Tienda";
+    ViewData["Title"] = "Ingresar Usuario";
 }
 
-<div class="row justify-content-center mt-5">
+<div class="row justify-content-center my-5">
     <div class="col-md-5">
-        <div class="card shadow-sm border-0">
-            <div class="card-header bg-dark text-white text-center py-3">
-                <h4 class="mb-0">Identifícate con tu Nick</h4>
+        <div class="card product-card p-4 shadow-lg text-center">
+            
+            <div class="mb-3">
+                <i class="bi bi-person-bounding-box text-warning fs-1"></i>
             </div>
-            <div class="card-body p-4">
-                <p class="text-muted text-center">
-                    Ingresa tu nick exacto de Minecraft para que las compras se sincronicen con tu cuenta.
-                </p>
+            
+            <h3 class="fw-extrabold text-white mb-1" style="font-family: 'Rajdhani', sans-serif;">IDENTIFÍCATE</h3>
+            <p class="text-light-50 small mb-4">Ingresa tu nickname de Minecraft para vincular tus compras y skins.</p>
+
+            <form asp-action="Login" method="post">
+                @Html.AntiForgeryToken()
+                <input type="hidden" name="returnUrl" value="@ViewBag.ReturnUrl" />
 
                 @if (!ViewData.ModelState.IsValid)
                 {
-                    <div class="alert alert-danger py-2">
-                        @Html.ValidationSummary(false, "", new { @class = "mb-0" })
+                    <div class="alert alert-gamer alert-danger text-start py-2 small mb-3">
+                        @Html.ValidationSummary(true, "")
                     </div>
                 }
 
-                <form asp-action="Login" method="post">
-                    @Html.AntiForgeryToken()
-                    <input type="hidden" name="returnUrl" value="@ViewBag.ReturnUrl" />
-
-                    <div class="mb-3">
-                        <label for="username" class="form-label fw-bold">Usuario de Minecraft</label>
-                        <div class="input-group">
-                            <span class="input-group-text"><i class="bi bi-person"></i>🎮</span>
-                            <input type="text" 
-                                   class="form-control" 
-                                   id="username" 
-                                   name="username" 
-                                   placeholder="Ej: Steve" 
-                                   required 
-                                   maxlength="16" />
-                        </div>
+                <div class="mb-4 text-start">
+                    <label class="form-label text-light-50 small fw-bold">NICKNAME DE MINECRAFT</label>
+                    <div class="input-group">
+                        <span class="input-group-text bg-dark border-secondary border-opacity-50 text-light-50">
+                            <i class="bi bi-controller"></i>
+                        </span>
+                        <input type="text" name="username" class="form-control bg-dark text-white border-secondary border-opacity-50 py-2" placeholder="Ej: Steve" required autofocus />
                     </div>
+                </div>
 
-                    <div class="d-grid gap-2">
-                        <button type="submit" class="btn btn-success btn-lg">Continuar a la Tienda</button>
-                    </div>
-                </form>
-            </div>
-            <div class="card-footer bg-light text-center py-2 text-muted">
-                <small>Validación oficial mediante la API de Mojang</small>
-            </div>
+                <button type="submit" class="btn btn-buy-custom w-100 py-2 fs-6">
+                    Continuar a la Tienda <i class="bi bi-arrow-right ms-1"></i>
+                </button>
+            </form>
         </div>
     </div>
 </div>

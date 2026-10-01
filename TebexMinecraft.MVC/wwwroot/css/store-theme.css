@@ -1,0 +1,167 @@
+:root {
+    --bg-dark: #0f1117;
+    --bg-card: rgba(22, 27, 34, 0.75);
+    --border-card: rgba(255, 255, 255, 0.08);
+    --gold: #ffb703;
+    --gold-glow: rgba(255, 183, 3, 0.35);
+    --primary-gradient: linear-gradient(135deg, #f77f00, #fcbf49);
+}
+
+body.bg-store {
+    background-color: var(--bg-dark);
+    font-family: 'Montserrat', sans-serif;
+    background-image:
+            radial-gradient(circle at 50% 0%, rgba(247, 127, 0, 0.12) 0%, transparent 50%),
+            radial-gradient(circle at 100% 100%, rgba(13, 110, 253, 0.08) 0%, transparent 40%);
+    background-attachment: fixed;
+    min-height: 100vh;
+}
+
+.fw-extrabold { font-weight: 800; }
+.tracking-wider { letter-spacing: 1.5px; }
+.text-light-50 { color: rgba(255, 255, 255, 0.65); }
+.hero-title { font-family: 'Rajdhani', sans-serif; letter-spacing: 2px; }
+
+.top-server-bar {
+    background: rgba(0, 0, 0, 0.4);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    font-size: 0.85rem;
+}
+.status-dot {
+    width: 9px;
+    height: 9px;
+    background: #2ec4b6;
+    border-radius: 50%;
+    display: inline-block;
+    box-shadow: 0 0 10px #2ec4b6;
+}
+.ip-badge {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 3px 10px;
+    border-radius: 8px;
+    font-family: monospace;
+    font-weight: 600;
+    transition: all 0.2s ease;
+}
+.ip-badge:hover {
+    background: rgba(255, 183, 3, 0.15);
+}
+
+.store-navbar {
+    background: rgba(15, 17, 23, 0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border-card);
+}
+.brand-title {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 1.6rem;
+    letter-spacing: 1px;
+}
+.nav-btn {
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    letter-spacing: 1px;
+    padding: 8px 16px !important;
+    border-radius: 8px;
+    color: rgba(255, 255, 255, 0.7) !important;
+    transition: all 0.2s ease;
+}
+.nav-btn:hover, .nav-btn.active {
+    color: #fff !important;
+    background: rgba(255, 255, 255, 0.07);
+}
+
+.user-pill {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 5px 12px;
+    border-radius: 50px;
+    border: 1px solid var(--border-card);
+}
+.skin-head {
+    border-radius: 6px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.5);
+}
+.logout-link {
+    font-size: 0.75rem;
+    text-decoration: none;
+}
+.logout-link:hover {
+    text-decoration: underline;
+}
+
+.btn-cart {
+    background: rgba(255, 183, 3, 0.15);
+    border: 1px solid var(--gold);
+    color: var(--gold);
+    transition: all 0.2s ease;
+}
+.btn-cart:hover {
+    background: var(--gold);
+    color: #000;
+    box-shadow: 0 0 15px var(--gold-glow);
+}
+
+.store-hero {
+    background: linear-gradient(180deg, rgba(247, 127, 0, 0.08) 0%, transparent 100%);
+    border-bottom: 1px solid var(--border-card);
+    margin-bottom: 2rem;
+}
+
+.product-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-card);
+    border-radius: 16px;
+    backdrop-filter: blur(10px);
+    transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+    overflow: hidden;
+}
+.product-card:hover {
+    transform: translateY(-6px);
+    border-color: rgba(255, 183, 3, 0.5);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5), 0 0 20px rgba(255, 183, 3, 0.15);
+}
+.product-card.owned-card {
+    border-color: rgba(46, 196, 182, 0.5);
+    background: rgba(46, 196, 182, 0.05);
+}
+
+.product-badge-rank {
+    font-family: 'Rajdhani', sans-serif;
+    letter-spacing: 2px;
+    font-size: 1.1rem;
+    font-weight: 700;
+}
+
+.product-price {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 2.3rem;
+    font-weight: 700;
+    color: var(--gold);
+}
+
+.btn-buy-custom {
+    background: var(--primary-gradient);
+    color: #111;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border: none;
+    border-radius: 10px;
+    transition: all 0.2s ease;
+}
+.btn-buy-custom:hover {
+    filter: brightness(1.15);
+    box-shadow: 0 0 18px var(--gold-glow);
+    color: #000;
+}
+
+.alert-gamer {
+    background: rgba(20, 24, 33, 0.9);
+    border-radius: 12px;
+    color: #fff;
+    backdrop-filter: blur(8px);
+}
+.alert-gamer.alert-success { border-left: 5px solid #2ec4b6; }
+.alert-gamer.alert-warning { border-left: 5px solid #ffb703; }
+.alert-gamer.alert-danger { border-left: 5px solid #e71d36; }
