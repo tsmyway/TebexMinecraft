@@ -1,0 +1,55 @@
+@model List<TebexMinecraft.Modelos.Rank>
+@{
+    ViewData["Title"] = "Rangos del Servidor";
+    var ownedRanks = ViewBag.OwnedRanks as List<string> ?? new List<string>();
+}
+
+<div class="text-center mb-5">
+    <h1 class="fw-bold">Rangos Permanentes</h1>
+    <p class="text-muted">Desbloquea comandos exclusivos, kits diarios y prioridad de entrada.</p>
+</div>
+
+<div class="row row-cols-1 row-cols-md-3 g-4">
+    @foreach (var rank in Model)
+    {
+        bool yaAdquirido = ownedRanks.Contains(rank.ServerRank, StringComparer.OrdinalIgnoreCase);
+
+        <div class="col">
+            <div class="card h-100 shadow-sm border-0 @(yaAdquirido ? "border-success border-2" : "")">
+                <div class="card-header bg-dark text-white text-center py-3">
+                    <h4 class="card-title mb-0 fw-bold">@rank.Name</h4>
+                    <span class="badge bg-primary text-uppercase mt-1 font-monospace">@rank.ServerRank</span>
+                </div>
+                <div class="card-body text-center d-flex flex-column">
+                    <h2 class="card-title text-success fw-bold my-3">$@rank.Price.ToString("0.00")</h2>
+                    <p class="card-text text-muted flex-grow-1">
+                        @(string.IsNullOrEmpty(rank.Description) ? "Beneficios exclusivos en todas las modalidades del servidor." : rank.Description)
+                    </p>
+
+                    @if (yaAdquirido)
+                    {
+                        <div class="mt-auto">
+                            <button class="btn btn-outline-success w-100 py-2 fw-bold" disabled>
+                                ✔️ Rango ya Adquirido
+                            </button>
+                        </div>
+                    }
+                    else
+                    {
+                        <form asp-controller="Cart" asp-action="Add" method="post" class="mt-auto">
+                            <input type="hidden" name="ProductCategory" value="RANK" />
+                            <input type="hidden" name="ProductInternalName" value="@rank.ServerRank" />
+                            <input type="hidden" name="ProductName" value="@rank.Name" />
+                            <input type="hidden" name="UnitPrice" value="@rank.Price" />
+                            <input type="hidden" name="Quantity" value="1" />
+
+                            <button type="submit" class="btn btn-primary w-100 fw-bold py-2">
+                                🛒 Añadir al Carrito
+                            </button>
+                        </form>
+                    }
+                </div>
+            </div>
+        </div>
+    }
+</div>

@@ -1,0 +1,141 @@
+@model List<TebexMinecraft.Modelos.OrderItem>
+@using Microsoft.AspNetCore.Http
+@using Newtonsoft.Json
+@using TebexMinecraft.Modelos
+
+@{
+    ViewData["Title"] = "Tu Carrito";
+    decimal total = Model?.Sum(i => i.UnitPrice * i.Quantity) ?? 0;
+
+    var userJson = Context.Session.GetString("MinecraftStoreUser");
+    User? currentUser = null;
+    if (!string.IsNullOrEmpty(userJson))
+    {
+        currentUser = JsonConvert.DeserializeObject<User>(userJson);
+    }
+}
+
+<div class="row">
+    <div class="col-lg-8">
+        <div class="card shadow-sm border-0 mb-4">
+            <div class="card-header bg-dark text-white d-flex justify-content-between align-items-center py-3">
+                <h5 class="mb-0">🛒 Artículos en tu Carrito</h5>
+                <span class="badge bg-secondary">@(Model?.Count ?? 0) productos</span>
+            </div>
+            <div class="card-body p-0">
+                @if (Model == null || !Model.Any())
+                {
+                    <div class="text-center py-5">
+                        <h4 class="text-muted">Tu carrito está vacío</h4>
+                        <p class="text-muted">Explora el catálogo y añade rangos, tags o consumibles.</p>
+                        <a asp-controller="Ranks" asp-action="Index" class="btn btn-primary mt-2">Ir a la tienda</a>
+                    </div>
+                }
+                else
+                {
+                    <div class="table-responsive">
+                        <table class="table table-hover align-middle mb-0">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>Producto</th>
+                                    <th>Categoría</th>
+                                    <th class="text-center">Cant.</th>
+                                    <th class="text-end">Precio Unit.</th>
+                                    <th class="text-end">Subtotal</th>
+                                    <th class="text-center">Acción</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @for (int i = 0; i < Model.Count; i++)
+                                {
+                                    var item = Model[i];
+                                    var subtotal = item.UnitPrice * item.Quantity;
+                                    <tr>
+                                        <td>
+                                            <div class="fw-bold">@item.ProductName</div>
+                                            <small class="text-muted font-monospace">@item.ProductInternalName</small>
+                                            @if (!string.IsNullOrEmpty(item.CustomInput))
+                                            {
+                                                <div class="text-info small">Nota: @item.CustomInput</div>
+                                            }
+                                        </td>
+                                        <td>
+                                            <span class="badge bg-light text-dark border">@item.ProductCategory</span>
+                                        </td>
+                                        <td class="text-center">@item.Quantity</td>
+                                        <td class="text-end">$@item.UnitPrice.ToString("0.00")</td>
+                                        <td class="text-end fw-bold">$@subtotal.ToString("0.00")</td>
+                                        <td class="text-center">
+                                            <form asp-action="Remove" method="post" class="d-inline">
+                                                <input type="hidden" name="index" value="@i" />
+                                                <button type="submit" class="btn btn-outline-danger btn-sm" title="Quitar">
+                                                    🗑️
+                                                </button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-4">
+        <div class="card shadow-sm border-0 mb-4">
+            <div class="card-header bg-dark text-white py-3">
+                <h5 class="mb-0">Resumen del Pedido</h5>
+            </div>
+            <div class="card-body">
+                <div class="d-flex justify-content-between mb-2">
+                    <span class="text-muted">Subtotal:</span>
+                    <span>$@total.ToString("0.00")</span>
+                </div>
+                <div class="d-flex justify-content-between mb-3">
+                    <span class="text-muted">Tarifa de entrega:</span>
+                    <span class="text-success fw-bold">Gratis ($0.00)</span>
+                </div>
+                <hr />
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h5 class="mb-0">Total a pagar:</h5>
+                    <h4 class="text-success mb-0 fw-bold">$@total.ToString("0.00")</h4>
+                </div>
+
+                @if (currentUser != null)
+                {
+                    <div class="d-flex align-items-center bg-light p-2 rounded mb-3 border">
+                        <img src="https://mc-heads.net/avatar/@currentUser.Username/32" 
+                             alt="@currentUser.Username" 
+                             class="rounded me-2 border border-secondary" />
+                        <div>
+                            <small class="text-muted d-block lh-1">Comprando como:</small>
+                            <strong class="text-dark">@currentUser.Username</strong>
+                        </div>
+                    </div>
+
+                    @if (Model != null && Model.Any())
+                    {
+                        <form asp-action="Checkout" method="post">
+                            <button type="submit" class="btn btn-success btn-lg w-100 fw-bold py-2 shadow-sm">
+                                Proceder al Pago 💳
+                            </button>
+                        </form>
+                    }
+                }
+                else
+                {
+                    <div class="alert alert-warning py-2 mb-3">
+                        <small>Debes ingresar tu nick de Minecraft antes de pagar.</small>
+                    </div>
+                    <a asp-controller="Account" asp-action="Login" 
+                       asp-route-returnUrl="@Url.Action("Index", "Cart")" 
+                       class="btn btn-primary w-100">
+                        Ingresar Nick de Minecraft
+                    </a>
+                }
+            </div>
+        </div>
+    </div>
+</div>

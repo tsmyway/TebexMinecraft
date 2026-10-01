@@ -1,0 +1,55 @@
+@model List<TebexMinecraft.Modelos.Prefix>
+@{
+    ViewData["Title"] = "Tags y Prefijos";
+    var ownedPrefixes = ViewBag.OwnedPrefixes as List<string> ?? new List<string>();
+}
+
+<div class="text-center mb-5">
+    <h1 class="fw-bold">Prefijos y Tags de Chat</h1>
+    <p class="text-muted">Destaca en el chat y tabulador del servidor con títulos exclusivos.</p>
+</div>
+
+<div class="row row-cols-1 row-cols-md-3 g-4">
+    @foreach (var prefix in Model)
+    {
+        bool yaAdquirido = ownedPrefixes.Contains(prefix.ServerTag, StringComparer.OrdinalIgnoreCase);
+
+        <div class="col">
+            <div class="card h-100 shadow-sm border-0 @(yaAdquirido ? "border-success border-2" : "")">
+                <div class="card-header bg-dark text-white text-center py-3">
+                    <h4 class="card-title mb-0 fw-bold">@prefix.Name</h4>
+                    <span class="badge bg-secondary text-uppercase mt-1 font-monospace">@prefix.ServerTag</span>
+                </div>
+                <div class="card-body text-center d-flex flex-column">
+                    <h2 class="card-title text-success fw-bold my-3">$@prefix.Price.ToString("0.00")</h2>
+                    <p class="card-text text-muted flex-grow-1">
+                        Título cosmético visible en todas las modalidades del servidor.
+                    </p>
+
+                    @if (yaAdquirido)
+                    {
+                        <div class="mt-auto">
+                            <button class="btn btn-outline-success w-100 py-2 fw-bold" disabled>
+                                ✔️ Tag ya Adquirido
+                            </button>
+                        </div>
+                    }
+                    else
+                    {
+                        <form asp-controller="Cart" asp-action="Add" method="post" class="mt-auto">
+                            <input type="hidden" name="ProductCategory" value="PREFIX" />
+                            <input type="hidden" name="ProductInternalName" value="@prefix.ServerTag" />
+                            <input type="hidden" name="ProductName" value="@prefix.Name" />
+                            <input type="hidden" name="UnitPrice" value="@prefix.Price" />
+                            <input type="hidden" name="Quantity" value="1" />
+
+                            <button type="submit" class="btn btn-primary w-100 fw-bold py-2">
+                                🛒 Añadir al Carrito
+                            </button>
+                        </form>
+                    }
+                </div>
+            </div>
+        </div>
+    }
+</div>

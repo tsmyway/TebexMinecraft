@@ -1,0 +1,41 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\TebexMinecraft.API\TebexMinecraft.API.csproj" />
+      <ProjectReference Include="..\TebexMinecraft.Consumer\TebexMinecraft.Consumer.csproj" />
+      <ProjectReference Include="..\TebexMinecraft.Modelos\TebexMinecraft.Modelos.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.31">
+        <PrivateAssets>all</PrivateAssets>
+        <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      </PackageReference>
+      <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="9.0.4" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <_ContentIncludedByDefault Remove="Views\Categories\Create.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\Categories\Delete.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\Categories\Details.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\Categories\Edit.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\Categories\Index.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\Orders\Create.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\Orders\Delete.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\Orders\Details.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\Orders\Edit.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\Orders\Index.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\Packages\Create.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\Packages\Delete.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\Packages\Details.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\Packages\Edit.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\Packages\Index.cshtml" />
+    </ItemGroup>
+
+</Project>

@@ -1,0 +1,140 @@
+﻿@using Microsoft.AspNetCore.Http
+@using Newtonsoft.Json
+@using TebexMinecraft.Modelos
+
+@{
+    var userJson = Context.Session.GetString("MinecraftStoreUser");
+    User? currentUser = null;
+    if (!string.IsNullOrEmpty(userJson))
+    {
+        currentUser = JsonConvert.DeserializeObject<User>(userJson);
+    }
+    
+    var cartJson = Context.Session.GetString("MinecraftStoreCart");
+    int cartCount = 0;
+    if (!string.IsNullOrEmpty(cartJson))
+    {
+        var cartItems = JsonConvert.DeserializeObject<List<OrderItem>>(cartJson);
+        cartCount = cartItems?.Sum(i => i.Quantity) ?? 0;
+    }
+}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>@ViewData["Title"] - Tienda Oficial Minecraft</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true"/>
+    <link rel="stylesheet" href="~/TebexMinecraft.MVC.styles.css" asp-append-version="true"/>
+</head>
+<body class="bg-light">
+<header>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark border-bottom shadow-sm mb-4">
+        <div class="container">
+            <a class="navbar-brand fw-bold text-success" asp-area="" asp-controller="Ranks" asp-action="Index">
+                ⛏️ Tienda Minecraft
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain" 
+                    aria-controls="navbarMain" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarMain">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" asp-controller="Ranks" asp-action="Index">Rangos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-controller="Prefixes" asp-action="Index">Prefijos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-controller="Consumables" asp-action="Index">Consumibles</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-controller="Appeals" asp-action="Index">Apelaciones</a>
+                    </li>
+                </ul>
+                
+                <ul class="navbar-nav ms-auto align-items-center gap-2">
+                    <li class="nav-item">
+                        <a class="btn btn-outline-light position-relative px-3" asp-controller="Cart" asp-action="Index">
+                            🛒 Carrito
+                            @if (cartCount > 0)
+                            {
+                                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                                    @cartCount
+                                </span>
+                            }
+                        </a>
+                    </li>
+                    
+                    @if (currentUser != null)
+                    {
+                        <li class="nav-item d-flex align-items-center ms-lg-2 bg-secondary bg-opacity-25 px-2 py-1 rounded">
+                            <img src="https://mc-heads.net/avatar/@currentUser.Username/32" 
+                                 alt="@currentUser.Username" 
+                                 class="rounded me-2 border border-secondary" />
+                            <span class="text-white fw-bold me-2">@currentUser.Username</span>
+                            <form asp-controller="Account" asp-action="Logout" method="post" class="d-inline">
+                                @Html.AntiForgeryToken()
+                                <button type="submit" class="btn btn-sm btn-outline-danger py-0 px-2" title="Cerrar sesión">✕</button>
+                            </form>
+                        </li>
+                    }
+                    else
+                    {
+                        <li class="nav-item ms-lg-2">
+                            <a class="btn btn-success btn-sm px-3" asp-controller="Account" asp-action="Login">
+                                Ingresar Nick
+                            </a>
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
+
+<div class="container mb-5">
+    @if (TempData["Success"] != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            @TempData["Success"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+
+    @if (TempData["Error"] != null)
+    {
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            @TempData["Error"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+    
+    @if (TempData["Warning"] != null)
+    {
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            ⚠️ @TempData["Warning"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+
+    <main role="main" class="pb-3">
+        @RenderBody()
+    </main>
+</div>
+
+<footer class="border-top footer text-muted bg-white py-3 mt-auto">
+    <div class="container text-center">
+        <small>&copy; 2026 - Tienda Oficial del Servidor</small>
+    </div>
+</footer>
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="~/js/site.js" asp-append-version="true"></script>
+@await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

@@ -1,0 +1,42 @@
+@model List<TebexMinecraft.Modelos.Consumable>
+@{
+    ViewData["Title"] = "Consumibles";
+}
+
+<div class="text-center mb-5">
+    <h1 class="fw-bold">Consumibles y Paquetes</h1>
+    <p class="text-muted">Vidas para Hardcore Factions, llaves para Crate Crates y más.</p>
+</div>
+
+<div class="row row-cols-1 row-cols-md-3 g-4">
+    @foreach (var item in Model)
+    {
+        <div class="col">
+            <div class="card h-100 shadow-sm border-0">
+                <div class="card-body text-center d-flex flex-column p-4">
+                    <span class="badge bg-warning text-dark align-self-center px-3 py-1 mb-2">Paquete Acumulable</span>
+                    <h5 class="fw-bold text-dark">@item.Name</h5>
+                    <p class="text-muted small">Incluye <strong>@item.Quantity unidades</strong> directas al inventario (/refresh).</p>
+                    
+                    <h3 class="text-success fw-bold my-3">$@item.Price.ToString("0.00")</h3>
+
+                    <form asp-controller="Cart" asp-action="Add" method="post" class="mt-auto">
+                        <input type="hidden" name="ProductCategory" value="CONSUMABLE" />
+                        <input type="hidden" name="ProductInternalName" value="@item.ServerItem" />
+                        <input type="hidden" name="ProductName" value="@item.Name" />
+                        <input type="hidden" name="UnitPrice" value="@item.Price" />
+
+                        <div class="input-group mb-3">
+                            <span class="input-group-text">Cant.</span>
+                            <input type="number" name="Quantity" value="1" min="1" max="50" class="form-control text-center" />
+                        </div>
+
+                        <button type="submit" class="btn btn-warning w-100 fw-bold text-dark">
+                            🛒 Añadir al Carrito
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    }
+</div>

@@ -1,0 +1,44 @@
+@model List<TebexMinecraft.Modelos.Appeal>
+@{
+    ViewData["Title"] = "Apelaciones y Desbaneos";
+}
+
+<div class="text-center mb-5">
+    <h1 class="fw-bold">Pases de Apelación</h1>
+    <p class="text-muted">Servicio de remoción de sanciones y reingreso a la comunidad.</p>
+</div>
+
+<div class="row justify-content-center">
+    @foreach (var appeal in Model)
+    {
+        <div class="col-md-5 mb-4">
+            <div class="card shadow-sm border-0 h-100">
+                <div class="card-header bg-danger text-white py-3 text-center">
+                    <h5 class="mb-0 fw-bold">@appeal.Name</h5>
+                    <small class="text-white-50">Código: @appeal.ServerAppeal</small>
+                </div>
+                <div class="card-body p-4 d-flex flex-column">
+                    <h3 class="text-center text-success fw-bold mb-3">$@appeal.Price.ToString("0.00")</h3>
+
+                    <form asp-controller="Cart" asp-action="Add" method="post" class="mt-auto">
+                        <input type="hidden" name="ProductCategory" value="APPEAL" />
+                        <input type="hidden" name="ProductInternalName" value="@appeal.ServerAppeal" />
+                        <input type="hidden" name="ProductName" value="@appeal.Name" />
+                        <input type="hidden" name="UnitPrice" value="@appeal.Price" />
+                        <input type="hidden" name="Quantity" value="1" />
+
+                        <div class="mb-3">
+                            <label class="form-label small fw-bold">Motivo o aclaración (opcional):</label>
+                            <textarea name="CustomInput" class="form-control" rows="2" 
+                                      placeholder="Explica brevemente la razón de tu sanción para el registro del staff..."></textarea>
+                        </div>
+
+                        <button type="submit" class="btn btn-danger w-100 fw-bold">
+                            ⚖️ Tramitar Desbaneo
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    }
+</div>
