@@ -1,12 +1,8 @@
 # PROYECTO TIENDA MINECRAFT
 
-## Agradecimientos
-
-Agradecimiento especial a los docentes del curso de desarrollo en **.NET**, así como a los servicios abiertos de la **API de Mojang** por facilitar la integración de identidades oficiales de Minecraft en aplicaciones web modernas.
-
 ## Descripción del Proyecto
 
-Sistema completo de tienda web inspirado en plataformas como Tebex para servidores de Minecraft. El proyecto está diseñado bajo una arquitectura desacoplada compuesta por un cliente web interactivo en **ASP.NET Core MVC** y un servicio backend en **ASP.NET Core Web API**, respaldado por una base de datos relacional en **PostgreSQL**.
+Sistema completo de tienda web inspirado en plataformas como Tebex para servidores de Minecraft. El proyecto está diseñado bajo una arquitectura desacoplada compuesta por un cliente web interactivo en **ASP.NET Core MVC** y un servicio backend en **ASP.NET Core Web API** testeable mediante **Swagger**, respaldado por una base de datos relacional en **PostgreSQL**.
 
 ## Estructura de la Solución
 
@@ -26,7 +22,9 @@ TebexMinecraft/
 
 ```
 
----
+## Agradecimientos
+
+Agradecimiento especial a los docentes del curso de desarrollo en **.NET**, así como a los servicios abiertos de la **API de Mojang** por facilitar la integración de identidades oficiales de Minecraft en aplicaciones web modernas.
 
 ## NOTA:
-* **Cierre de sesión del admin:** Accede a `{BaseURLMVC}/admin-logout` para forzar la expiración de la cabecera de administración en el navegador.
+* **Uso de IA:** Se utilizó Inteligencia Artificial como apoyo para implementar la lógica del `ServerSyncController`, la integración y consumo de la **API de Mojang**, y la maquetación de las vistas HTML del proyecto MVC.
